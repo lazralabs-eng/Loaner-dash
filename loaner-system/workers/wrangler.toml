@@ -6,11 +6,18 @@ name = "loaner-system-worker"
 main = "webhook.js"
 compatibility_date = "2024-01-01"
 
+[observability.logs]
+enabled = false
+invocation_logs = true
+
 [env.production]
 preview_urls = true
 workers_dev = true
-# Set secrets before deploy: wrangler secret put SUPABASE_URL (then SUPABASE_KEY, DEALERWARE_SECRET)
-# For local dev: create .dev.vars with SUPABASE_URL, SUPABASE_KEY, DEALERWARE_SECRET
+# Production requires secrets (workers.dev and custom routes will 500 until set):
+#   cd loaner-system/workers && npx wrangler secret put SUPABASE_URL --env production
+#   npx wrangler secret put SUPABASE_KEY --env production   (use service_role key so worker can insert/update)
+#   npx wrangler secret put DEALERWARE_SECRET --env production
+# For local dev: .dev.vars in this directory (SUPABASE_URL, SUPABASE_KEY, DEALERWARE_SECRET)
 
 [[env.production.routes]]
 pattern = "api.lazralabs.ai/webhooks/*"
