@@ -1,0 +1,16 @@
+cat > workers/wrangler.toml << 'EOF'
+name = "loaner-system-worker"
+main = "webhook.js"
+compatibility_date = "2024-01-01"
+
+[env.production]
+
+[env.production.vars]
+SUPABASE_URL = ""
+SUPABASE_KEY = ""
+DEALERWARE_SECRET = ""
+
+[[env.production.routes]]
+pattern = "api.lazralabs.ai/webhooks/*"
+zone_name = "lazralabs.ai"
+EOF
