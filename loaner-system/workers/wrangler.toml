@@ -6,17 +6,12 @@ name = "loaner-system-worker"
 main = "webhook.js"
 compatibility_date = "2024-01-01"
 
-# Route: e.g. api.lazralabs.ai/webhooks/*
-# Add in Cloudflare dashboard: Workers → loaner-system-worker → Settings → Routes
-# URL: https://api.lazralabs.ai/webhooks/*
-# Zone: lazralabs.ai
-
-[vars]
-# Override in dashboard or use wrangler secret for sensitive values
-# SUPABASE_URL = "https://xxxxx.supabase.co"
-# SUPABASE_KEY = "your-service-role-or-anon-key"
-# DEALERWARE_SECRET = "your-dealerware-webhook-secret"
-
-# Optional: use [env.production.vars] for production overrides
 [env.production]
-vars = { }
+preview_urls = true
+workers_dev = true
+# Set secrets before deploy: wrangler secret put SUPABASE_URL (then SUPABASE_KEY, DEALERWARE_SECRET)
+# For local dev: create .dev.vars with SUPABASE_URL, SUPABASE_KEY, DEALERWARE_SECRET
+
+[[env.production.routes]]
+pattern = "api.lazralabs.ai/webhooks/*"
+zone_name = "lazralabs.ai"

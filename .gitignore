@@ -1,0 +1,15 @@
+# Secrets and local env
+loaner-system/workers/.dev.vars
+.env
+.env.local
+*.log
+
+# Wrangler / Cloudflare
+loaner-system/workers/.wrangler/
+
+# Dependencies
+loaner-system/workers/node_modules/
+node_modules/
+
+# IDE / cursor
+.cursor/
